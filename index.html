@@ -25,7 +25,7 @@
       <span class="subtitle">Touch the screen to play, swipe to left for options...</span>
     </div>
     <audio autoplay id="music-player" loop>
-      <source src="sounds/campfire.mp3" type="audio/mpeg">
+      <source id="source-file" src="sounds/campfire.mp3" type="audio/mpeg">
     </audio>
     <dialog id="options-menu">
       <h2>How to use</h2>
@@ -47,13 +47,14 @@
           <option value="sounds/waves.mp3">Waves</option>
           <option value="sounds/white_noise.mp3">White noise</option>
         </select>
-      <p>Close this dialog to start</p>
+      <p>Swipe to left to close this dialog</p>
     </dialog>
   </div>
   <script>
     const play = document.getElementById('app');
     const modal = document.getElementById('options-menu')
     const musicPlayer = document.getElementById('music-player');
+    const source = document.getElementById('source-file');
     play.addEventListener('click', () => {
       if (musicPlayer.paused) {
         musicPlayer.play();
@@ -86,16 +87,20 @@
         checkDirection()
     })
 
-    document.getElementById('sound-name').addEventListener('change', (event) => {
-      musicPlayer.src = event.target.value;
+    const selectSound = document.getElementById('sound-name');
+
+    selectSound.addEventListener('change', (event) => {
+      source.src = event.target.value;
       window.localStorage.setItem('selected-sound', event.target.value);
     });
 
     if(window.localStorage.getItem('selected-sound')) {
-      musicPlayer.src = window.localStorage.getItem('selected-sound');
+      selectSound.value = window.localStorage.getItem('selected-sound');
+      source.src = window.localStorage.getItem('selected-sound');
+
     }
     else {
-        musicPlayer.src = 'sounds/campfire.mp3';
+        source.src = 'sounds/campfire.mp3';
     }
   </script>
   </body>

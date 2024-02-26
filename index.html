@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="./public/favicon.jpg" type="image/jpeg" />
     <title>Sleep Baby Sleep</title>
     <script>
       if ('serviceWorker' in navigator) {
@@ -21,14 +22,37 @@
   <div id="app">
     <div class="vanish">
     <h1 class="title vanish">Sleep baby sleep</h1>
-      <span class="subtitle">Touch the screen to play</span>
+      <span class="subtitle">Touch the screen to play, swipe to left for options...</span>
     </div>
-    <audio autoplay id="music-player">
-      <source src="background-music.mp3" type="audio/mpeg">
+    <audio autoplay id="music-player" loop>
+      <source src="sounds/campfire.mp3" type="audio/mpeg">
     </audio>
+    <dialog id="options-menu">
+      <h2>How to use</h2>
+      <p>Touch the screen to play or pause the music</p>
+      <p>Select your favorite music and close the dialog</p>
+      <select id="sound-name">
+          <option value="sounds/campfire.mp3">Campfire</option>
+          <option value="sounds/dryer.mp3">Dryer</option>
+          <option value="sounds/fan.mp3">Fan</option>
+          <option value="sounds/ocean.mp3">Ocean</option>
+          <option value="sounds/rain.mp3">Rain</option>
+          <option value="sounds/refrigerator.mp3">Refrigerator</option>
+          <option value="sounds/shhhh.mp3">Shhhh</option>
+          <option value="sounds/shower.mp3">Shower</option>
+          <option value="sounds/stream.mp3">Stream</option>
+          <option value="sounds/vacuum.mp3">Vacuum</option>
+          <option value="sounds/water.mp3">Water</option>
+          <option value="sounds/waterfall.mp3">Waterfall</option>
+          <option value="sounds/waves.mp3">Waves</option>
+          <option value="sounds/white_noise.mp3">White noise</option>
+        </select>
+      <p>Close this dialog to start</p>
+    </dialog>
   </div>
   <script>
     const play = document.getElementById('app');
+    const modal = document.getElementById('options-menu')
     const musicPlayer = document.getElementById('music-player');
     play.addEventListener('click', () => {
       if (musicPlayer.paused) {
@@ -38,7 +62,40 @@
       }
     });
 
-    //on swipe up, volume must up
+    let touchstartX = 0
+    let touchendX = 0
+
+    function checkDirection() {
+        if (touchendX < touchstartX) {
+            // swipe left
+            modal.showModal()
+        }
+        if (touchendX > touchstartX) {
+            //swipe right
+            modal.close()
+        }
+    }
+
+    document.addEventListener('touchstart', e => {
+        touchstartX = e.changedTouches[0].screenX
+    })
+
+    document.addEventListener('touchend', e => {
+        touchendX = e.changedTouches[0].screenX
+        checkDirection()
+    })
+
+    document.getElementById('sound-name').addEventListener('change', (event) => {
+      musicPlayer.src = event.target.value;
+      window.localStorage.setItem('selected-sound', event.target.value);
+    });
+
+    if(window.localStorage.getItem('selected-sound')) {
+      musicPlayer.src = window.localStorage.getItem('selected-sound');
+    }
+    else {
+        musicPlayer.src = 'sounds/campfire.mp3';
+    }
   </script>
   </body>
 </html>

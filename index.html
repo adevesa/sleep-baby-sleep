@@ -25,7 +25,20 @@
       <span class="subtitle">Touch the screen to play, swipe to left for options...</span>
     </div>
     <audio autoplay id="music-player" loop>
-      <source id="source-file" src="sounds/campfire.mp3" type="audio/mpeg">
+        <source src="sounds/campfire.mp3" type="audio/mpeg"/>
+        <source src="sounds/dryer.mp3" type="audio/mpeg"/>
+        <source src="sounds/fan.mp3" type="audio/mpeg"/>
+        <source src="sounds/ocean.mp3" type="audio/mpeg"/>
+        <source src="sounds/rain.mp3" type="audio/mpeg"/>
+        <source src="sounds/refrigerator.mp3" type="audio/mpeg"/>
+        <source src="sounds/shhhh.mp3" type="audio/mpeg"/>
+        <source src="sounds/shower.mp3" type="audio/mpeg"/>
+        <source src="sounds/stream.mp3" type="audio/mpeg"/>
+        <source src="sounds/vacuum.mp3" type="audio/mpeg"/>
+        <source src="sounds/water.mp3" type="audio/mpeg"/>
+        <source src="sounds/waterfall.mp3" type="audio/mpeg"/>
+        <source src="sounds/waves.mp3" type="audio/mpeg"/>
+        <source src="sounds/white_noise.mp3" type="audio/mpeg"/>
     </audio>
     <dialog id="options-menu">
       <h2>How to use</h2>
@@ -54,7 +67,6 @@
     const play = document.getElementById('app');
     const modal = document.getElementById('options-menu')
     const musicPlayer = document.getElementById('music-player');
-    const source = document.getElementById('source-file');
     play.addEventListener('click', () => {
       if (musicPlayer.paused) {
         musicPlayer.play();
@@ -90,14 +102,15 @@
     const selectSound = document.getElementById('sound-name');
 
     selectSound.addEventListener('change', (event) => {
-      source.src = event.target.value;
+      musicPlayer.src = event.target.value;
+      musicPlayer.load();
       window.localStorage.setItem('selected-sound', event.target.value);
     });
 
     if(window.localStorage.getItem('selected-sound')) {
       selectSound.value = window.localStorage.getItem('selected-sound');
-      source.src = window.localStorage.getItem('selected-sound');
-
+      musicPlayer.src = window.localStorage.getItem('selected-sound');
+      musicPlayer.load();
     }
     else {
         source.src = 'sounds/campfire.mp3';

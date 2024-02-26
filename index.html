@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Sleep Baby Sleep</title>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('service-worker.js').then((registration) => {
+            console.log('SW registered: ', registration);
+          }).catch((registrationError) => {
+            console.log('SW registration failed: ', registrationError);
+          });
+        });
+      }
+    </script>
+  </head>
+  <body>
+  <div id="app">
+    <div class="vanish">
+    <h1 class="title vanish">Sleep baby sleep</h1>
+      <span class="subtitle">Touch the screen to play</span>
+    </div>
+    <audio autoplay id="music-player">
+      <source src="background-music.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+  <script>
+    const play = document.getElementById('app');
+    const musicPlayer = document.getElementById('music-player');
+    play.addEventListener('click', () => {
+      if (musicPlayer.paused) {
+        musicPlayer.play();
+        play.textContent = '❚❚';
+      } else {
+        musicPlayer.pause();
+        play.textContent = '▶';
+      }
+    });
+
+    //on swipe up, volume must up
+  </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+body {
+    background-color: #000000;
+    width: 100vw;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.title {
+    color: #ffffff;
+    font-size: 4rem;
+    margin: 1em 1em 1em 1em;
+}
+
+.subtitle {
+    color: #ffffff;
+    font-size: 2rem;
+    margin: 1em 1em 1em 1em;
+}
+
+/*vanish title after 2 sec*/
+.vanish {
+    animation: vanish 2s forwards;
+}
+
+@keyframes vanish {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+

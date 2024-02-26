@@ -66,11 +66,12 @@
     let touchendX = 0
 
     function checkDirection() {
-        if (touchendX < touchstartX) {
+        const diff = touchendX - touchstartX
+        if (diff < -50) {
             // swipe left
             modal.showModal()
         }
-        if (touchendX > touchstartX) {
+        if (diff > 50) {
             //swipe right
             modal.close()
         }

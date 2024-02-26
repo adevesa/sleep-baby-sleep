@@ -1,8 +1,27 @@
 importScripts('serviceworker-cache-polyfill.js');
 
+const TO_CACHE = [
+    './',
+    'style.css',
+    './sounds/campfire.mp3',
+    './sounds/dryer.mp3',
+    './sounds/fan.mp3',
+    './sounds/ocean.mp3',
+    './sounds/rain.mp3',
+    './sounds/refrigerator.mp3',
+    './sounds/shhhh.mp3',
+    './sounds/shower.mp3',
+    './sounds/stream.mp3',
+    './sounds/vacuum.mp3',
+    './sounds/water.mp3',
+    './sounds/waterfall.mp3',
+    './sounds/waves.mp3',
+    './sounds/white_noise.mp3'
+]
+
 self.addEventListener('install', function (event) {
     event.waitUntil(caches.open('simple-sw-1').then((cache) => {
-        return cache.addAll(['background-music.mp3', './', 'style.css']);
+        return cache.addAll(TO_CACHE);
     }));
 });
 

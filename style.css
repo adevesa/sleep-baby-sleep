@@ -27,9 +27,8 @@ body {
     margin: 1em 1em 1em 1em;
 }
 
-/*vanish title after 2 sec*/
 .vanish {
-    animation: vanish 2s forwards;
+    animation: vanish 6s forwards;
 }
 
 @keyframes vanish {

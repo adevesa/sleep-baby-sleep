@@ -113,6 +113,15 @@
         window.localStorage.setItem('selected-sound', event.target.value);
     });
 
+    musicPlayer.addEventListener('timeupdate', function () {
+        const buffer = 0.44;
+        if(this.currentTime > this.duration - buffer){
+            this.currentTime = 0;
+            this.play();
+        }
+    }, false);
+
+
     if (window.localStorage.getItem('selected-sound')) {
         selectSound.value = window.localStorage.getItem('selected-sound');
         musicPlayer.src = window.localStorage.getItem('selected-sound');
